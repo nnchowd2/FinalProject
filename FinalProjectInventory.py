@@ -200,6 +200,8 @@ def csvReader(file_name):
             print("No such item in inventory")
 
 
+# 2 (i, ii, iii, iv) Interactive Inventory Query
+
 # call the menu function
 # prompt user to enter an option from the menu
 menu()
