@@ -28,8 +28,6 @@ def get_Full_Inventory(file_name1, file_name2, file_name3):
                 # sort the list by manufacturer name
                 list1 = sorted(list1, key=lambda col: col[1], reverse=False)
 
-            readFile1.close()  # close the file
-
             # Read and append Price List
             with open(file_name2, "r") as readFile2:
                 inputFile2 = csv.reader(readFile2)
@@ -39,8 +37,6 @@ def get_Full_Inventory(file_name1, file_name2, file_name3):
                 for row in inputFile2:
                     list2.append(row)
 
-                readFile2.close()
-
                 # Read and append Service Date list
                 with open(file_name3, "r") as readFile3:
                     inputFile3 = csv.reader(readFile3)
@@ -49,8 +45,6 @@ def get_Full_Inventory(file_name1, file_name2, file_name3):
 
                     for row in inputFile3:
                         list3.append(row)
-
-                    readFile3.close()
 
                     # write to file
                     for item1 in list1:  # iterate over each row of the lists
@@ -75,8 +69,6 @@ def get_Item_Inventory(file_name):
             readList.append(row)
             # sort by ID
             readList = sorted(readList, key=lambda col: col[0], reverse=False)
-
-        readFile.close()
 
         for item in readList:
             # declare a variable for item types as strings
@@ -127,8 +119,6 @@ def get_Damage_Report(file_name):
             # sort the file by price (most expensive to least expensive
             readList.sort(key=lambda col: float(col[3], ), reverse=True)
 
-        readFile.close()
-
         with open("DamagedInventoryList.csv", "w", newline="") as damagedFile:
             damaged = csv.writer(damagedFile)
 
@@ -173,8 +163,6 @@ def csvReader(file_name):
                     # sort by prices (most expensive to least)
                     # the program will find the most expensive item that meet all the conditions, first and display that item to the user
                     readList.sort(key=lambda col: float(col[3], ), reverse=True)
-
-        readFile.close()
 
         # declare a global variable
         found = False
