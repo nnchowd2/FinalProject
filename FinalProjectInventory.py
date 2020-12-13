@@ -103,7 +103,7 @@ def get_Item_Past_Service_Date(file_name):
                 # write the dates that are past the current date
                 if row[4] < datetime.date.today():
                     # fix the format of the date that will be written into the file
-                    row[4] = datetime.datetime.strftime(row[4], "%m/%d/%Y")
+                    row[4] = datetime.datetime.strftime(row[4], "%#m/%#d/%Y")
                     serviceDate.writerow(row)
 
 
