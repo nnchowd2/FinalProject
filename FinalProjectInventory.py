@@ -61,8 +61,8 @@ def get_Full_Inventory(file_name1, file_name2, file_name3):
                                     # slice and concatenate all the lists and write to FullInventory file (ID, manufacturer name, item type, price, service date list, and damage indicator)
                                     outputFile.writerow(item1[0:3] + item2[1:] + item3[1:] + item1[-1:])
 
-                                # 1 (b) Create a file for each of the item types
 
+# 1 (b) Create a file for each of the item types
 
 def get_Item_Inventory(file_name):
     # read the full inventory file that was created in 1(a)
@@ -127,6 +127,8 @@ def get_Damage_Report(file_name):
             # sort the file by price (most expensive to least expensive
             readList.sort(key=lambda col: float(col[3], ), reverse=True)
 
+        readFile.close()
+
         with open("DamagedInventoryList.csv", "w", newline="") as damagedFile:
             damaged = csv.writer(damagedFile)
 
@@ -172,6 +174,8 @@ def csvReader(file_name):
                     # the program will find the most expensive item that meet all the conditions, first and display that item to the user
                     readList.sort(key=lambda col: float(col[3], ), reverse=True)
 
+        readFile.close()
+
         # declare a global variable
         found = False
 
@@ -191,7 +195,18 @@ def csvReader(file_name):
                     # print the found item
                     print("Your item is: {}, {}, {}, ${}".format(line[0], line[1], line[2], line[3]))
                     break
-
+        # if the item is found
+        if found:
+            for item in readList:
+                # if the list has the desired item type
+                if item[2] in name:
+                    # if the list does not have he desired manufacturer
+                    if item[1] not in name:
+                        item[1] = item[1].capitalize()
+                        item[2] = item[2].capitalize()
+                        # print and suggest similar items from different manufacturer
+                        print("You may also consider: {}, {}, {}, ${}".format(item[0], item[1], item[2], item[3]))
+                        break
         # if item is not found
         if not found:
             print("No such item in inventory")
@@ -202,9 +217,9 @@ def csvReader(file_name):
 menu()
 option = input("Choose an option:\n")
 
-while option != "q" or "Q":
-    if option == "a" or option == "A":
-        # user enters the manufacturer name and item type
+while option != "q":
+    if option == "a":
+        # prompt user to enter the manufacturer name and item type
         name = input("Enter item:\n")
         # user input is converted to lowercase
         name = name.lower()
